@@ -1,0 +1,62 @@
+.home {
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.seatings h1 {
+    font-size: 6vh;
+}
+
+.form {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly
+}
+
+.formControls {
+    display: flex;
+    flex-direction: column;
+}
+
+.formControls label {
+    font-size: 20px;
+    
+}
+
+.formControls input,select {
+    height: 5vh;
+    font-size: 23px;
+    border-radius: 10px;
+    color: darkviolet;
+    width: 70%;
+    align-self: center;
+    text-align: center;
+}
+
+.actions {
+    margin-top: 2rem;
+}
+
+.actions button{
+    width: 70%;
+    height: 3rem;
+    border-radius: 10px;
+    font-size: 35px;
+    background-color: darkviolet;
+    color: white;
+}
+
+.actions button:hover {
+    background-color: lightblue;
+    color: darkviolet;
+}
+
+.error {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: red;
+    width: 70%;
+    font-size: 25px;
+    margin-left: 15%;
+}

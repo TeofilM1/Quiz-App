@@ -1,0 +1,15 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+
+.footer hr {
+    width: 70%;
+    height: 0.1rem;
+    background-color: white;
+}
+
+.footer h3 {
+    text-align: center;
+}
