@@ -7,19 +7,16 @@ import QuizPage from "./pages/Quiz/QuizPage";
 import NotFound from "./pages/NotFound/NotFound";
 import "./App.css";
 import Footer from "./components/Footer";
-import axios from "axios";
 
 function App() {
   const [name, setName] = useState("");
-  const [questions, setQuestions] = useState("");
-  const [score, setScore] = useState(0);
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
 
-  const fetchQuestionsHandler = async (category ='', difficulty ='') => {
-    const { data } = await axios.get(
-      `https://quizapi.io/api/v1/questions?apiKey=o5qb6N6CZbDztc3JkjEa1v4JiPkx0QiTQdYv4sWr&category=${category}&difficulty=${difficulty}&limit=10`
-    );
-    setQuestions(data);
-  };
+  function fetchQuestionsHandler(cat, dif) {
+    setCategory(cat);
+    setDifficulty(dif);
+  }
 
   return (
     <div className="app">
@@ -42,11 +39,9 @@ function App() {
             path="/quiz"
             element={
               <QuizPage
+                category={category}
+                difficulty={difficulty}
                 name={name}
-                questions={questions}
-                score={score}
-                setScore={setScore}
-                setQuestions={setQuestions}
               />
             }
           />

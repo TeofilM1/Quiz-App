@@ -1,65 +1,49 @@
 import React, { useEffect, useState } from "react";
 import classes from "./QuizPage.module.css";
+import axios from "axios";
 
 function QuizPage(props) {
-  const [options, setOptions] = useState();
-  const [currQuestion, setQurrQuestion] = useState(0);
+  const [questions, setQuestions] = useState("");
+  const [score, setScore] = useState(0);
+  const [currQuestion, setCurrQuestion] = useState(0);
+  const appKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
-    console.log(props.questions)
-    setOptions(
-      props.questions && Object.values(props.questions[currQuestion]?.answers)
-    );
-       
-       return ()=> {
-        console.log(options); 
-      } 
-  }, [props.questions,options]);
+    const fetchQuestionsHandler = async (category, difficulty) => {
+      const { data } = await axios.get(
+        `https://quizapi.io/api/v1/questions?apiKey=${appKey}&category=${category}&difficulty=${difficulty}&limit=10`
+      );
+      setQuestions(data);
+    };
+    fetchQuestionsHandler(props.category, props.difficulty);
+  }, [props.category, props.difficulty,appKey]);
+  console.log(questions);
+
+  function nextQuestion() {
+      setScore(score + 1)
+      setCurrQuestion(currQuestion + 1);
+  }
 
   return (
     <div className={classes.quizPage}>
       <h1>WELCOME: {props.name}</h1>
-      {props.questions ? (
+      {questions ? (
         <div>
           <div className={classes.score}>
-            <span>CATEGORY: {props.questions[currQuestion].category}</span>
-            <span>SCORE: {props.score}</span>
+            <span>CATEGORY: {questions[currQuestion].category}</span>
+            <span>SCORE: {score}</span>
           </div>
           <div className={classes.question}>
             <h1>Question {currQuestion + 1}</h1>
-            <h1>{props.questions[currQuestion].question}</h1>
+            <h1>{questions[currQuestion].question}</h1>
             <div className={classes.question_options}>
-              {props.questions &&
-                props.questions[currQuestion].answers.answer_a && (
-                  <button>
-                    {props.questions[currQuestion].answers.answer_a}
+              {Object.values(questions[currQuestion].answers)
+                .filter(options => options!== null)
+                .map((opt) => (
+                  <button onClick={nextQuestion} key={Math.random()}>
+                    {opt && opt}
                   </button>
-                )}
-              {props.questions &&
-                props.questions[currQuestion].answers.answer_b && (
-                  <button>
-                    {props.questions[currQuestion].answers.answer_b}
-                  </button>
-                )}
-              {/* {props.questions && options.map((e) => <button>{e}</button>)} */}
-              {props.questions &&
-                props.questions[currQuestion].answers.answer_d && (
-                  <button>
-                    {props.questions[currQuestion].answers.answer_d}
-                  </button>
-                )}
-              {props.questions &&
-                props.questions[currQuestion].answers.answer_e && (
-                  <button>
-                    {props.questions[currQuestion].answers.answer_e}
-                  </button>
-                )}
-              {props.questions &&
-                props.questions[currQuestion].answers.answer_f && (
-                  <button>
-                    {props.questions[currQuestion].answers.answer_f}
-                  </button>
-                )}
+                ))}
             </div>
           </div>
         </div>

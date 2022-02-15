@@ -9,6 +9,9 @@ function Home(props) {
 
   const navigate = useNavigate();
 
+  const typeCategory = ['Random','Linux','Code','Docker', 'DevOps','SQL' ];
+  const typeDifficulty = ['Easy', 'Medium', 'Hard'];
+
   function FormSubmitHandler(event) {
     event.preventDefault();
     if (!props.name || !category || !difficulty) {
@@ -42,12 +45,13 @@ function Home(props) {
               name="selectQuiz"
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="random">Random</option>
+              {typeCategory.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              {/* <option value="random">Random</option>
               <option value="Linux">Linux</option>
               <option value="code">Code</option>
               <option value="Docker">Docker</option>
               <option value="DevOps">DevOps</option>
-              <option value="SQL">SQL</option>
+              <option value="SQL">SQL</option> */}
             </select>
           </div>
           <div className={classes.formControls}>
@@ -57,9 +61,10 @@ function Home(props) {
               name="difficulty"
               onChange={(e) => setDifficulty(e.target.value)}
             >
-              <option value="easy">Easy</option>
+              {typeDifficulty.map(dif => <option key={dif} value={dif}>{dif}</option>)}
+              {/* <option value="easy">Easy</option>
               <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              <option value="hard">Hard</option> */}
             </select>
           </div>
           {/* {!userName && <h4>Please Enter Your Name </h4>} */}
