@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import classes from "./QuizPage.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function QuizPage(props) {
   const [questions, setQuestions] = useState("");
   const [score, setScore] = useState(0);
   const [currQuestion, setCurrQuestion] = useState(0);
   const appKey = process.env.REACT_APP_API_KEY;
+  const navigate = useNavigate();               
+
+
 
   useEffect(() => {
     const fetchQuestionsHandler = async (category, difficulty) => {
@@ -16,17 +20,23 @@ function QuizPage(props) {
       setQuestions(data);
     };
     fetchQuestionsHandler(props.category, props.difficulty);
-  }, [props.category, props.difficulty,appKey]);
-  console.log(questions);
+  }, [props.category, props.difficulty, appKey]);
 
   function nextQuestion() {
-      setScore(score + 1)
+    if(currQuestion < 9){
       setCurrQuestion(currQuestion + 1);
+    } else {
+      
+      navigate("/profile");
+    }
+    
   }
+
+  function quitPlay(params) {}
 
   return (
     <div className={classes.quizPage}>
-      <h1>WELCOME: {props.name}</h1>
+      <h2>WELCOME: {props.name}</h2>
       {questions ? (
         <div>
           <div className={classes.score}>
@@ -34,16 +44,32 @@ function QuizPage(props) {
             <span>SCORE: {score}</span>
           </div>
           <div className={classes.question}>
-            <h1>Question {currQuestion + 1}</h1>
-            <h1>{questions[currQuestion].question}</h1>
+            <div className={classes.questions_header}>
+              <h2>Question {currQuestion + 1}</h2>
+              <h2>{questions[currQuestion].question}</h2>
+            </div>
             <div className={classes.question_options}>
-              {Object.values(questions[currQuestion].answers)
-                .filter(options => options!== null)
+              {Object.values(questions[currQuestion]?.answers)
+                .filter((option) => option !== null)
                 .map((opt) => (
-                  <button onClick={nextQuestion} key={Math.random()}>
-                    {opt && opt}
-                  </button>
+                  <div className={classes.option}>
+                    <input
+                      className={classes.checkbox}
+                      type="checkbox"
+                      id={opt}
+                      name={opt}
+                    ></input>
+                    <label for={opt}>{opt}</label>
+                  </div>
                 ))}
+            </div>
+            <div className={classes.questions_actions}>
+              <button className={classes.actions_quit} onClick={quitPlay}>
+                Quit
+              </button>
+              <button className={classes.actions_next} onClick={nextQuestion}>
+                Next Question
+              </button>
             </div>
           </div>
         </div>

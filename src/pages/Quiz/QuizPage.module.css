@@ -1,30 +1,95 @@
 .quizPage {
-    width: 70%;
-    padding-left: 15%;
-    text-align: center;
+  width: 80%;
+  height: 85vh;
+  padding-left: 10%;
+  text-align: center;
+}
+
+.quizPage h2 {
+    font-size: 4vh;
 }
 
 .score {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  font-size: 3vh;
+}
+
+.questions_header {
+  height: 25vh;
 }
 
 .question_options {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    padding-left: 15%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 35vh;
+ 
 }
 
-.question_options button {
-    color: darkviolet;
-    padding: 5px;
-    border-radius: 10px;
-    margin: 10px 0px;
-    font-size: 20px;
+.option {
+  width: 49%;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  height: fit-content;
+  margin: 0 4px ;
+  padding: 2px;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start
+}
+
+.option input{
+  height: 4vh;
+  width: 2vw;
+}
+
+.option label {
+  color: blueviolet;
+  width: 100%;
+  border-radius: 10px;
+  text-align: start;
+  justify-self: center;
 }
 
 .question_options button:hover {
-    color: white;
-    background-color: darkviolet;
+  color: white;
+  background-color: darkviolet;
+}
+
+.questions_actions {
+  height: 6vh;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.questions_actions button{
+  width: 50%;
+  margin: 0 5px;
+  border-radius: 10px;
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.actions_quit {
+  color: white;
+  background-color: darkmagenta;
+}
+
+.actions_quit:hover {
+  color: blueviolet;
+  background-color: white;
+}
+
+.actions_next {
+  color: white;
+  background-color: cornflowerblue;
+}
+
+.actions_next:hover {
+  color: blueviolet;
+  background-color: white;
 }

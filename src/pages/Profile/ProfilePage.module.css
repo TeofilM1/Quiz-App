@@ -1,0 +1,14 @@
+.profile {
+    padding-top: 20vh;
+    font-size: 25px;
+}
+
+.profile button {
+    width: 40%;
+    height: 3rem;
+    border-radius: 10px;
+    font-size: 35px;
+    background-color: darkviolet;
+    color: white;
+  
+}

@@ -5,12 +5,12 @@
 .nav a {
     color: white;
     text-decoration: none;
-    font-size: 3vw;
+    font-size: 5vh;
     font-weight: 700;
 }
 
 .nav hr {
-    width: 70%;
-    height: 0.1rem;
+    width: 80%;
+    height: 0.4vh;
     background-color: white;
 }

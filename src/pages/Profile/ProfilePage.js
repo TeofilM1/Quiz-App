@@ -1,7 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import classes from './ProfilePage.module.css'
 
 function ProfilePage(props) {
-  return <h1>Profile Page</h1>;
+  return (
+    <div className={classes.profile}>
+      <h1>THANKS FOR PLAYING {props.name}</h1>
+        <h1>YOUR SCORE IS {props.score}
+      </h1>
+      
+      <Link to='/'><button>Play Again</button></Link>
+    </div>
+  );
 }
 
 export default ProfilePage;

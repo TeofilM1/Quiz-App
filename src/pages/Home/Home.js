@@ -3,20 +3,24 @@ import classes from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 
 function Home(props) {
-  const [category, setCategory] = useState("");
-  const [difficulty, setDifficulty] = useState("");
+  const [category, setCategory] = useState("linux");
+  const [difficulty, setDifficulty] = useState("easy");
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
-  const typeCategory = ['Random','Linux','Code','Docker', 'DevOps','SQL' ];
-  const typeDifficulty = ['Easy', 'Medium', 'Hard'];
+  const typeCategory = ["", "Linux", "Code", "Docker", "DevOps", "SQL"];
+  const typeDifficulty = ["","Easy", "Medium", "Hard"];
 
   function FormSubmitHandler(event) {
     event.preventDefault();
     if (!props.name || !category || !difficulty) {
       setError(true);
       return;
+    }else if (props.name || category==="" || difficulty ==="") {
+      setError(false);
+      props.fetchQuestionsHandler(category, difficulty);
+      navigate("/quiz");
     } else {
       setError(false);
       props.fetchQuestionsHandler(category, difficulty);
@@ -45,13 +49,11 @@ function Home(props) {
               name="selectQuiz"
               onChange={(e) => setCategory(e.target.value)}
             >
-              {typeCategory.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-              {/* <option value="random">Random</option>
-              <option value="Linux">Linux</option>
-              <option value="code">Code</option>
-              <option value="Docker">Docker</option>
-              <option value="DevOps">DevOps</option>
-              <option value="SQL">SQL</option> */}
+              {typeCategory.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
           </div>
           <div className={classes.formControls}>
@@ -61,13 +63,13 @@ function Home(props) {
               name="difficulty"
               onChange={(e) => setDifficulty(e.target.value)}
             >
-              {typeDifficulty.map(dif => <option key={dif} value={dif}>{dif}</option>)}
-              {/* <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option> */}
+              {typeDifficulty.map((dif) => (
+                <option key={dif} value={dif}>
+                  {dif}
+                </option>
+              ))}
             </select>
           </div>
-          {/* {!userName && <h4>Please Enter Your Name </h4>} */}
           <div className={classes.actions}>
             <button type="submit">Start Quiz</button>
           </div>

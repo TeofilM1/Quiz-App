@@ -17,6 +17,7 @@ function App() {
     setCategory(cat);
     setDifficulty(dif);
   }
+  const score = 10;
 
   return (
     <div className="app">
@@ -45,7 +46,7 @@ function App() {
               />
             }
           />
-          <Route exact path="/profile" element={<ProfilePage />} />
+          <Route exact path="/profile" element={<ProfilePage name={name} score={score} />} />
           <Route exact path="/*" element={<NotFound />} />
         </Routes>
       </main>
