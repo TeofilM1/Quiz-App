@@ -1,7 +1,7 @@
 .quizPage {
   width: 80%;
   height: 85vh;
-  padding-left: 10%;
+  margin-left: 10%;
   text-align: center;
 }
 
@@ -22,7 +22,7 @@
 .question_options {
   display: flex;
   flex-wrap: wrap;
-  height: 35vh;
+  height: 28vh;
  
 }
 
@@ -42,7 +42,7 @@
 
 .option input{
   height: 4vh;
-  width: 2vw;
+  width: 3vw;
 }
 
 .option label {
@@ -92,4 +92,44 @@
 .actions_next:hover {
   color: blueviolet;
   background-color: white;
+}
+
+@media (max-width: 768px) {
+  .quizPage h2 {
+    margin:1.5vh 0;
+  }
+  .score {
+    font-size: 2.5vh;
+  }
+
+  .questions_header {
+    height: auto;
+  }
+
+  .questions_actions button{
+    width: 100%;
+    margin: 0 5px;
+    font-size: 20px;
+  }
+
+  .option {
+    width: 100%;
+    font-size: 12px;
+    margin: 5px 0;
+  }
+
+  .option input{
+    height: 3vh;
+    width: 4vw;
+  }
+
+  .question_options {
+    height: auto;
+  }
+
+  .questions_actions{
+    position: fixed;
+    bottom: 10vh;
+    width: 80%;
+  }
 }

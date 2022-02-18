@@ -60,3 +60,20 @@
     font-size: 25px;
     margin-left: 25%;
 }
+
+@media (max-width: 768px) {
+    .home {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .error {
+        width: 86%;
+        font-size: 20px;
+        margin-left: 8%;
+    }
+
+    .formControls input,select {
+        width: 80%;
+    }
+}

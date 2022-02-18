@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function Home(props) {
   const [category, setCategory] = useState("linux");
   const [difficulty, setDifficulty] = useState("easy");
-  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -15,14 +14,14 @@ function Home(props) {
   function FormSubmitHandler(event) {
     event.preventDefault();
     if (!props.name || !category || !difficulty) {
-      setError(true);
+      props.setError(true);
       return;
     }else if (props.name || category==="" || difficulty ==="") {
-      setError(false);
+      props.setError(false);
       props.fetchQuestionsHandler(category, difficulty);
       navigate("/quiz");
     } else {
-      setError(false);
+      props.setError(false);
       props.fetchQuestionsHandler(category, difficulty);
       navigate("/quiz");
     }
@@ -32,7 +31,7 @@ function Home(props) {
     <div className={classes.home}>
       <div className={classes.seatings}>
         <h1>QUIZ SETTINGS</h1>
-        {error && <h3 className={classes.error}>Please Fill All Fields</h3>}
+        {props.error && <h3 className={classes.error}>Please Fill All Fields</h3>}
         <form onSubmit={FormSubmitHandler} className={classes.form}>
           <div className={classes.formControls}>
             <label>Enter Your Name</label>

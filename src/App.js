@@ -10,14 +10,15 @@ import Footer from "./components/Footer";
 
 function App() {
   const [name, setName] = useState("");
+  const [score, setScore] = useState(0);
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [error, setError] = useState(false);
 
   function fetchQuestionsHandler(cat, dif) {
     setCategory(cat);
     setDifficulty(dif);
   }
-  const score = 10;
 
   return (
     <div className="app">
@@ -29,6 +30,8 @@ function App() {
             path="/"
             element={
               <Home
+              error={error}
+              setError={setError}
                 name={name}
                 setUserName={setName}
                 fetchQuestionsHandler={fetchQuestionsHandler}
@@ -42,11 +45,20 @@ function App() {
               <QuizPage
                 category={category}
                 difficulty={difficulty}
+                setName={setName}
                 name={name}
+                score={score}
+                setScore={setScore}
+                error={error}
+                setError={setError}
               />
             }
           />
-          <Route exact path="/profile" element={<ProfilePage name={name} score={score} />} />
+          <Route
+            exact
+            path="/profile"
+            element={<ProfilePage name={name} setName={setName} score={score} setScore={setScore} />}
+          />
           <Route exact path="/*" element={<NotFound />} />
         </Routes>
       </main>
