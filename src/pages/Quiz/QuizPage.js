@@ -6,12 +6,11 @@ import QuitModal from "../../components/QuitModal";
 
 function QuizPage(props) {
   const navigate = useNavigate();
-  const [quit,setQuit] = useState(false)
+  const [quit, setQuit] = useState(false);
   const [questions, setQuestions] = useState("");
   const [currQuestion, setCurrQuestion] = useState(0);
   const appKey = process.env.REACT_APP_API_KEY;
   const [answers, setAnswers] = useState();
-
 
   useEffect(() => {
     const fetchQuestionsHandler = async (category, difficulty) => {
@@ -23,37 +22,46 @@ function QuizPage(props) {
     fetchQuestionsHandler(props.category, props.difficulty);
   }, [props.category, props.difficulty, appKey]);
 
+  function displayQuestions(params) {
+    console.log(questions[currQuestion])
+    
+  }
+  displayQuestions()
   function handleChange(e) {
-    const answer = Object.values(questions[currQuestion].answers);
-    console.log(answer)
-    const correct = Object.values(questions[currQuestion].correct_answers).map((ans) => ans);
-
-    function cor(i) {
-      for (const element of correct) {
-        if (element === true){
-          return element[i]
-        }
-      }
-      }
-      
-     cor(0)
-    const { id, checked } = e.target;
-    setAnswers(`${id} is ${checked}`);
-    if (checked) {
-      setAnswers(`${id} is ${checked}`)
-    } else {
+    if(questions[currQuestion].multiple_correct_answers === "true"){
+    console.log("MULTIPLE")
+    console.log(questions[currQuestion].correct_answers)
     }
-   
+    const { id, checked } = e.target;
+    setAnswers(id);
+    if (checked) {
+      setAnswers(id);
+    } else {
+      setAnswers('')
+    }
   }
   function nextQuestion() {
+    const options = Object.values(questions[currQuestion].answers);
+    const correct = Object.values(questions[currQuestion].correct_answers).map(ans=> ans);
+    const index = correct.findIndex( x => x === 'true' );
+    console.log(index)
+    const answer = options[index]
+    console.log(answer)
+    console.log(answers);
+
     if (currQuestion < 9) {
-     if (answers) {
-       setCurrQuestion( currQuestion +1)
-       props.setError(false)
-       setAnswers("")
-     } else{
-       props.setError(true)
-     }
+      if (answers) {
+        setCurrQuestion(currQuestion + 1);
+        props.setError(false);
+        if(answer === answers){
+          props.setScore(props.score +1 )
+          setAnswers("");
+        } else {
+          setAnswers("");
+        }
+      } else {
+        props.setError(true);
+      }
     } else {
       props.setScore(props.score + 1);
       navigate("/profile");
@@ -62,7 +70,7 @@ function QuizPage(props) {
 
   function quitPlay(params) {
     if (currQuestion < 6) {
-      setQuit(true)
+      setQuit(true);
     } else {
       navigate("/profile");
     }
@@ -70,7 +78,13 @@ function QuizPage(props) {
 
   return (
     <React.Fragment>
-      {quit && <QuitModal name={props.name} setQuit={setQuit} setName={props.setName}/>}
+      {quit && (
+        <QuitModal
+          name={props.name}
+          setQuit={setQuit}
+          setName={props.setName}
+        />
+      )}
       <div className={classes.quizPage}>
         <h2>WELCOME: {props.name}</h2>
         {questions ? (
@@ -87,7 +101,7 @@ function QuizPage(props) {
               <div className={classes.question_options}>
                 {Object.values(questions[currQuestion]?.answers)
                   .filter((option) => option !== null)
-                  .map((opt,i) => (
+                  .map((opt, i) => (
                     <div className={classes.option} key={opt}>
                       <input
                         className={classes.checkbox}
@@ -103,7 +117,6 @@ function QuizPage(props) {
               </div>
               {props.error && <p>Please select answer</p>}
               <div className={classes.questions_actions}>
-               
                 <button className={classes.actions_quit} onClick={quitPlay}>
                   Quit
                 </button>
